@@ -22,4 +22,23 @@ modules by path ./.ve/ 15.1 KiB
     ./.ve/EditorOverlay.css 2.25 KiB [built] [code generated]
     ./node_modules/css-loader/dist/cjs.js!./.ve/EditorOverlay.css 697 bytes [built] [code generated]
   ./.ve/EditorOverlay.jsx 1.58 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 1307 ms
+webpack 5.99.9 compiled successfully in 1256 ms
+assets by status 1.98 KiB [cached] 1 asset
+assets by path *.js 1.43 MiB
+  asset bundle.js 1.41 MiB [emitted] (name: main)
+  asset main.7e93ce91f36d08cb98ed.hot-update.js 19.4 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.7e93ce91f36d08cb98ed.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.43 MiB = bundle.js 1.41 MiB main.7e93ce91f36d08cb98ed.hot-update.js 19.4 KiB
+cached modules 1.26 MiB [cached] 41 modules
+runtime modules 27.5 KiB 14 modules
+javascript modules 7.97 KiB
+  modules by path ./src/components/*.js 6.79 KiB
+    ./src/components/MainContainer.js 2.33 KiB [built] [code generated]
+    ./src/components/NavigationHeader.js 1.12 KiB [built] [code generated]
+    ./src/components/VisualizationPanel.js 858 bytes [built] [code generated]
+    ./src/components/DataPanel.js 826 bytes [built] [code generated]
+    ./src/components/AIInsightsPanel.js 880 bytes [built] [code generated]
+    ./src/components/InteractionPanel.js 858 bytes [built] [code generated]
+  ./src/App.js 300 bytes [built] [code generated]
+  ./src/context/AppContext.js 912 bytes [built] [code generated]
+webpack 5.99.9 compiled successfully in 133 ms
