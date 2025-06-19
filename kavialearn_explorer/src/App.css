@@ -1,15 +1,19 @@
 :root {
-  --base-light: #00ffff;
-  --base-dark: #00008b;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
+  --primary: #4A90E2;
+  --secondary: #50E3C2;
+  --accent: #F5A623;
+  --base-light: #f9fbfd;
+  --base-mid: #e6f1fa;
+  --text-color: #1a2a36;
+  --text-secondary: #6b7c93;
+  --border-color: #e9eef3;
 }
+
 
 body {
   margin: 0;
   font-family: 'Inter', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  background-color: var(--base-dark);
+  background: var(--base-light);
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -22,87 +26,215 @@ body {
 }
 
 .navbar {
-  background-color: var(--base-dark);
-  padding: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  background: #fff;
   border-bottom: 1px solid var(--border-color);
+  padding: 0;
   position: fixed;
   top: 0;
-  width: 100%;
-  box-sizing: border-box;
-  z-index: 100;
-}
-
-.logo {
-  font-size: 1.25rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.logo-symbol {
-  color: var(--base-light);
+  width: 100vw;
+  z-index: 110;
+  box-shadow: 0 1px 10px 0 rgba(74,144,226,.06);
 }
 
 .container {
-  max-width: 900px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1160px;
   margin: 0 auto;
-  padding: 0 24px;
   width: 100%;
+  padding: 0 32px;
+  min-height: 64px;
   box-sizing: border-box;
 }
 
-.hero {
-  padding-top: 120px;
-  padding-bottom: 64px;
-  text-align: center;
+.logo {
+  font-size: 1.33rem;
+  font-weight: bold;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 24px;
+  color: var(--primary);
+  gap: 10px;
+  letter-spacing: -1px;
 }
 
-.subtitle {
-  color: var(--base-light);
-  font-weight: 500;
-  font-size: 1.1rem;
-}
-
-.title {
-  font-size: 3.5rem;
-  font-weight: 600;
-  line-height: 1.2;
-  margin: 0;
-}
-
-.description {
-  font-size: 1.1rem;
-  line-height: 1.5;
-  color: var(--text-secondary);
-  max-width: 600px;
-  margin-bottom: 16px;
+.logo-symbol {
+  font-size: 1.5em;
+  color: var(--secondary);
 }
 
 .btn {
-  background-color: var(--base-light);
-  color: white;
+  background: var(--primary);
+  color: #fff;
   border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
+  border-radius: 6px;
   font-size: 1rem;
   font-weight: 500;
+  padding: 10px 24px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  box-shadow: 0 2px 4px 0 rgba(74,144,226,0.06);
+  transition: background 0.25s, transform 0.08s;
 }
 
-.btn:hover {
-  background-color: #7691ff;
+.btn:hover, .btn:active {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-1px) scale(1.025);
 }
 
-.btn-large {
-  padding: 12px 24px;
-  font-size: 1.1rem;
+.main-layout {
+  margin-top: 72px;
+  display: flex;
+  flex-direction: row;
+  gap: 36px;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 80vh;
+  padding: 18px 2vw 45px 2vw;
+  max-width: 1400px;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
 }
+
+/* Section panel basics */
+.panel-section {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(50,130,245,.07);
+  padding: 30px 28px 20px 28px;
+  margin-bottom: 32px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1.5px solid var(--border-color);
+}
+
+.visualization-panel {
+  min-width: 330px;
+  max-width: 480px;
+  flex: 2.1;
+  background: linear-gradient(120deg, #e6f1fa 0%, #f8fdff 100%);
+  border-left: 8px solid var(--primary);
+  margin-bottom: 0;
+}
+.visualization-panel h2 {
+  margin-top: 0;
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: -1px;
+  font-size: 1.45rem;
+}
+
+.data-panel {
+  background: linear-gradient(120deg, #f7fafc 60%, #e7fef5 100%);
+  border-left: 8px solid var(--secondary);
+  min-width: 260px;
+  max-width: 340px;
+  flex: 1.35;
+}
+
+.data-panel h3 {
+  color: var(--secondary);
+  font-weight: 700;
+  font-size: 1.12rem;
+  margin-top: 0;
+}
+
+.ai-panel {
+  background: linear-gradient(120deg, #fff7e6 60%, #fdfafa 100%);
+  border-left: 8px solid var(--accent);
+  min-height: 120px;
+}
+.ai-panel h3 {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 1.12rem;
+  margin-top: 0;
+}
+
+.interaction-panel {
+  background: linear-gradient(100deg, #f9fcfd 60%, #f7fafc 100%);
+  border-left: 8px solid var(--secondary);
+  min-width: 200px;
+  max-width: 300px;
+  flex: 1.1;
+}
+.interaction-panel h3 {
+  color: var(--secondary);
+  font-weight: 700;
+  font-size: 1.12rem;
+  margin-top: 0;
+}
+
+.section-label {
+  display: inline-block;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: #fff2df;
+  border-radius: 5px;
+  padding: 2px 10px;
+  margin-bottom: 8px;
+  letter-spacing: 0.01em;
+}
+
+.placeholder-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 52px;
+  font-size: 1.12rem;
+  color: var(--text-secondary);
+  background: #f6fafd;
+  margin-top: 16px;
+  border-radius: 8px;
+  border: 1px dashed var(--border-color);
+}
+
+/* Responsive design for under 900px */
+@media (max-width: 970px) {
+  .main-layout {
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px 1vw 40px 1vw;
+    min-height: unset;
+  }
+  .visualization-panel, .data-panel, .interaction-panel {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+/* Headers, titles, basic typography */
+h1,h2,h3,h4 {
+  font-family: 'Inter', 'Roboto', 'Helvetica', Arial, sans-serif;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-color);
+}
+
+/* Utility for subtle fade/focus on header areas */
+.panel-section:before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 5px;
+  background: var(--primary);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  opacity: 0.12;
+}
+/* Hide fade on white-variant panels */
+.data-panel:before, .ai-panel:before, .interaction-panel:before {
+  background: var(--secondary);
+  opacity: 0.09;
+}
+.ai-panel:before {
+  background: var(--accent);
+  opacity: 0.12;
+}
+

@@ -11,18 +11,21 @@ import "../App.css";
 export default function MainContainer() {
   return (
     <AppProvider>
-      <div className="app" style={{ background: "var(--base-dark)", minHeight: "100vh" }}>
+      <div className="app">
         <NavigationHeader />
-
-        <main style={{ marginTop: 80, display: "flex", flexDirection: "row", gap: 24, justifyContent: "center" }}>
-          <div style={{ flex: 2, minWidth: 330, maxWidth: 440 }}>
+        <main className="main-layout">
+          <div className="visualization-panel">
             <VisualizationPanel />
           </div>
-          <div style={{ flex: 1.5, minWidth: 270 }}>
-            <DataPanel />
-            <AIInsightsPanel />
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 18 }}>
+            <div className="data-panel">
+              <DataPanel />
+            </div>
+            <div className="ai-panel">
+              <AIInsightsPanel />
+            </div>
           </div>
-          <div style={{ flex: 1, minWidth: 220, maxWidth: 280 }}>
+          <div className="interaction-panel">
             <InteractionPanel />
           </div>
         </main>
