@@ -136,8 +136,10 @@ export default function InteractionPanel() {
       </div>
 
       <div className="placeholder-visual">
-        {/* PhET, quotes, jokes components will be integrated here */}
-        Interact, explore, and have a little fun!
+        {/* Quotes, jokes components will be integrated here */}
+        Interact, explore, and have a little fun! 
+        <br />
+        <span style={{ fontSize: "0.93em", color: "#54adc2" }}>Looking for interactive science tools? Try the Visualization Panel's PhET simulations!</span>
       </div>
     </section>
   );

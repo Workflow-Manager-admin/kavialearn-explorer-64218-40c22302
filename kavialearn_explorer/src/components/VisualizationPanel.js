@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import useMathJS from "../hooks/useMathJS";
+import PhETSimEmbed from "./PhETSimEmbed";
 
 // PUBLIC_INTERFACE
 /**
@@ -219,6 +220,21 @@ export default function VisualizationPanel() {
           Type a math function/expression to see instant results and a plot!
         </div>
       )}
+
+      {/* --- Divider for visual clarity --- */}
+      <div
+        style={{
+          borderTop: "1.1px dashed #c9e7fa",
+          margin: "25px 0 12px 0",
+          width: "100%",
+          opacity: 0.54,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* PhET Simulation Section */}
+      <PhETSimEmbed />
+
     </section>
   );
 }
