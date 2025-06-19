@@ -1,0 +1,4 @@
+{
+    "command": "npm run test",
+    "working_directory": "/home/kavia/workspace/code-generation/kavialearn-explorer-64218-40c22302/kavialearn_explorer"
+}
