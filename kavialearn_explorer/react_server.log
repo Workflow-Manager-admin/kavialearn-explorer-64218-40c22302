@@ -12,36 +12,26 @@ asset index.html 1.98 KiB [emitted]
 runtime modules 27.5 KiB 14 modules
 cacheable modules 1.29 MiB
   modules by path ./node_modules/ 1.24 MiB 31 modules
-  modules by path ./src/ 31.7 KiB
-    modules by path ./src/components/*.js 18.7 KiB 6 modules
+  modules by path ./src/ 38.1 KiB
+    modules by path ./src/components/*.js 24 KiB 6 modules
     modules by path ./src/*.css 10.4 KiB 4 modules
+    modules by path ./src/hooks/*.js 2.05 KiB 3 modules
     modules by path ./src/*.js 830 bytes 2 modules
-    modules by path ./src/hooks/*.js 889 bytes 2 modules
     + 1 module
   modules by path ./.ve/ 15.1 KiB
     modules by path ./.ve/*.js 10.6 KiB 2 modules
     modules by path ./.ve/*.css 2.93 KiB 2 modules
     ./.ve/EditorOverlay.jsx 1.58 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 1284 ms
+webpack 5.99.9 compiled successfully in 1319 ms
 assets by status 1.98 KiB [cached] 1 asset
-assets by path *.js 1.44 MiB
-  asset bundle.js 1.43 MiB [emitted] (name: main)
-  asset main.8af316c045c632a9d8de.hot-update.js 9.94 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.8af316c045c632a9d8de.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.44 MiB = bundle.js 1.43 MiB main.8af316c045c632a9d8de.hot-update.js 9.94 KiB
-cached modules 1.28 MiB [cached] 50 modules
-runtime modules 27.5 KiB 14 modules
-javascript modules 6.32 KiB
-  ./src/components/DataPanel.js 6.04 KiB [built] [code generated]
-  ./src/hooks/useNASA.js 287 bytes [built] [code generated]
-webpack 5.99.9 compiled successfully in 115 ms
-assets by status 1.98 KiB [cached] 1 asset
-assets by path *.js 1.44 MiB
-  asset bundle.js 1.43 MiB [emitted] (name: main)
-  asset main.d30421cd867540aca685.hot-update.js 2.81 KiB [emitted] [immutable] [hmr] (name: main)
-asset main.d30421cd867540aca685.hot-update.json 28 bytes [emitted] [immutable] [hmr]
-Entrypoint main 1.44 MiB = bundle.js 1.43 MiB main.d30421cd867540aca685.hot-update.js 2.81 KiB
+assets by path *.js 1.46 MiB
+  asset bundle.js 1.44 MiB [emitted] (name: main)
+  asset main.f928639cf28c2e9b515b.hot-update.js 18.2 KiB [emitted] [immutable] [hmr] (name: main)
+asset main.f928639cf28c2e9b515b.hot-update.json 28 bytes [emitted] [immutable] [hmr]
+Entrypoint main 1.46 MiB = bundle.js 1.44 MiB main.f928639cf28c2e9b515b.hot-update.js 18.2 KiB
 cached modules 1.29 MiB [cached] 51 modules
 runtime modules 27.5 KiB 14 modules
-./src/hooks/useNASA.js 1.18 KiB [built] [code generated]
-webpack 5.99.9 compiled successfully in 49 ms
+javascript modules 12.8 KiB
+  ./src/components/DataPanel.js 12.4 KiB [built] [code generated]
+  ./src/hooks/useWorldBank.js 430 bytes [built] [code generated]
+webpack 5.99.9 compiled successfully in 143 ms

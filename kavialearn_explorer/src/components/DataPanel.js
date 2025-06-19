@@ -1,18 +1,31 @@
 import React, { useEffect, useState } from "react";
 import useNASA from "../hooks/useNASA";
+import useWorldBank from "../hooks/useWorldBank";
 
 // PUBLIC_INTERFACE
 /**
- * DataPanel integrates NASA's Astronomy Picture of the Day (APOD)
- * and facts, utilizing the useNASA hook. Displays astronomy picture,
- * information, loading indicators, and error state.
+ * DataPanel integrates NASA's APOD and World Bank global statistics,
+ * utilizing the respective hooks. Shows a space section and a
+ * clearly separated World Bank stats section, with robust loading/error UI.
  */
 export default function DataPanel() {
+  // --- NASA Section ---
   const { nasaImage, fetchAPOD } = useNASA();
   const [apod, setApod] = useState(null);
   const [fact, setFact] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  // --- World Bank Section setup ---
+  // Sample indicators: POP (total), GDP (US), Life expectancy
+  const { worldBankData: popUSA } = useWorldBank("SP.POP.TOTL", "USA");
+  const { worldBankData: gdpDEU } = useWorldBank("NY.GDP.MKTP.CD", "DEU");
+  const { worldBankData: healthJPN } = useWorldBank("SP.DYN.LE00.IN", "JPN");
+
+  // WB UI state
+  const [wbLoading, setWbLoading] = useState(true);
+  const [wbError, setWbError] = useState("");
+  const [wbRendered, setWbRendered] = useState(false);
 
   // List of quick astronomy facts (could be randomized)
   const astronomyFacts = [
@@ -21,7 +34,7 @@ export default function DataPanel() {
     "Jupiter is so big it could fit all the other planets inside it.",
     "Neutron stars can spin at a rate of 600 rotations per second.",
     "A spoonful of a neutron star weighs about a billion tons.",
-    "Saturn could float in water because it’s mostly made of gas."
+    "Saturn could float in water because it’s mostly made of gas.",
   ];
 
   // Fetch APOD data when mounted
@@ -29,7 +42,6 @@ export default function DataPanel() {
     let isMounted = true;
     setLoading(true);
     setError("");
-    // Try to use real API logic; fallback to stub if unavailable
     const getAPOD = async () => {
       if (typeof fetchAPOD === "function") {
         try {
@@ -39,7 +51,7 @@ export default function DataPanel() {
           if (isMounted) setError("Could not retrieve NASA Astronomy Picture.");
         }
       } else {
-        // Fallback: stub value from nasaImage (for development)
+        // Fallback: stub value (dev)
         setApod({
           url: nasaImage,
           title: "IC 405: Flaming Star Nebula",
@@ -51,10 +63,7 @@ export default function DataPanel() {
     };
     getAPOD();
 
-    // Pick a random astronomy fact
-    setFact(
-      astronomyFacts[Math.floor(Math.random() * astronomyFacts.length)]
-    );
+    setFact(astronomyFacts[Math.floor(Math.random() * astronomyFacts.length)]);
 
     return () => {
       isMounted = false;
@@ -62,11 +71,58 @@ export default function DataPanel() {
     // eslint-disable-next-line
   }, []);
 
+  // Simulate async World Bank loading/error for stub; update if real API used
+  useEffect(() => {
+    setWbLoading(true);
+    setWbError("");
+    // Simulate slight delay for realism/UX even in stub
+    const timer = setTimeout(() => {
+      // Basic stub: check if we at least get a value for all three indicators
+      if (
+        popUSA &&
+        Array.isArray(popUSA) &&
+        popUSA[0]?.value &&
+        gdpDEU &&
+        Array.isArray(gdpDEU) &&
+        gdpDEU[0]?.value &&
+        healthJPN &&
+        Array.isArray(healthJPN) &&
+        healthJPN[0]?.value
+      ) {
+        setWbRendered(true);
+        setWbLoading(false);
+      } else {
+        setWbError(
+          "Could not load global statistics from World Bank API."
+        );
+        setWbLoading(false);
+        setWbRendered(false);
+      }
+    }, 700);
+    return () => clearTimeout(timer);
+    // Only on mount or change of stub data
+    // eslint-disable-next-line
+  }, [popUSA, gdpDEU, healthJPN]);
+
+  // Format helpers
+  function formatNumber(n) {
+    // Compact format: 1,234,567 => 1.23M, etc.
+    if (typeof n !== "number") return "";
+    if (n >= 1e9) return (n / 1e9).toFixed(2) + "B";
+    if (n >= 1e6) return (n / 1e6).toFixed(2) + "M";
+    if (n >= 1e3) return (n / 1e3).toFixed(2) + "K";
+    return n.toLocaleString();
+  }
+
   return (
     <section className="panel-section data-panel">
+      {/* Space Data Section */}
       <div className="section-label">Space Data & Facts</div>
       <h3>
-        <span role="img" aria-label="space">🚀</span> NASA Astronomy
+        <span role="img" aria-label="space">
+          🚀
+        </span>{" "}
+        NASA Astronomy
       </h3>
       {loading ? (
         <div className="placeholder-visual" style={{ minHeight: 80 }}>
@@ -108,7 +164,7 @@ export default function DataPanel() {
                 objectFit: "cover",
                 borderRadius: 8,
                 margin: "0 auto",
-                background: "#e1eafd"
+                background: "#e1eafd",
               }}
             />
             <div
@@ -119,7 +175,7 @@ export default function DataPanel() {
                 fontSize: "1.02rem",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
-                whiteSpace: "nowrap"
+                whiteSpace: "nowrap",
               }}
               title={apod.title}
             >
@@ -136,11 +192,12 @@ export default function DataPanel() {
               fontSize: "0.97rem",
               marginBottom: 10,
               minHeight: 38,
-              fontStyle: "italic"
+              fontStyle: "italic",
             }}
           >
             {apod.explanation
-              ? apod.explanation.slice(0, 168) + (apod.explanation.length > 168 ? "..." : "")
+              ? apod.explanation.slice(0, 168) +
+                (apod.explanation.length > 168 ? "..." : "")
               : "No explanation available for this image."}
           </div>
         </div>
@@ -160,9 +217,106 @@ export default function DataPanel() {
           marginTop: 12,
         }}
       >
-        <span role="img" aria-label="star">🌟</span> Astronomy Fact:{" "}
-        <span style={{ fontWeight: 500 }}>{fact}</span>
+        <span role="img" aria-label="star">
+          🌟
+        </span>{" "}
+        Astronomy Fact: <span style={{ fontWeight: 500 }}>{fact}</span>
       </div>
+
+      {/* --- Divider for clarity --- */}
+      <div
+        style={{
+          borderTop: "1.3px dashed var(--border-color, #e9eef3)",
+          margin: "27px 0 16px 0",
+          width: "100%",
+          opacity: 0.77,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* World Bank Data Section */}
+      <div className="section-label" style={{ background: "#e7fef5", color: "#18b48d" }}>
+        🌐 Global Statistics (World Bank)
+      </div>
+      <h3 style={{ color: "#18b48d" }}>Key Country Indicators</h3>
+      {wbLoading ? (
+        <div className="placeholder-visual" style={{ minHeight: 65 }}>
+          Loading World Bank statistics...
+        </div>
+      ) : wbError ? (
+        <div
+          style={{
+            background: "#f6fcfb",
+            color: "#189481",
+            border: "1.5px solid #cef5ed",
+            borderRadius: 8,
+            padding: "13px 14px",
+            fontSize: "1rem",
+            marginBottom: 10,
+          }}
+        >
+          {wbError}
+        </div>
+      ) : (
+        <div style={{ display: "flex", flexDirection: "column", gap: 13 }}>
+          <div
+            style={{
+              background: "#edfcfc",
+              borderLeft: "5px solid #18b48d",
+              borderRadius: 7,
+              padding: "8px 13px 7px 15px",
+            }}
+          >
+            <strong>🇺🇸 USA Population:</strong>{" "}
+            <span style={{ color: "#189481", fontWeight: 600 }}>
+              {popUSA && Array.isArray(popUSA)
+                ? formatNumber(popUSA[0]?.value)
+                : "--"}
+            </span>{" "}
+            <span style={{ color: "#888", marginLeft: 6, fontSize: "0.91em" }}>
+              {popUSA && popUSA[0]?.year ? ` (Year: ${popUSA[0].year})` : ""}
+            </span>
+          </div>
+          <div
+            style={{
+              background: "#edfcfa",
+              borderLeft: "5px solid #16a071",
+              borderRadius: 7,
+              padding: "8px 13px 7px 15px",
+            }}
+          >
+            <strong>🇩🇪 Germany GDP (USD):</strong>{" "}
+            <span style={{ color: "#168772", fontWeight: 600 }}>
+              $
+              {gdpDEU && Array.isArray(gdpDEU)
+                ? formatNumber(gdpDEU[0]?.value)
+                : "--"}
+            </span>
+            <span style={{ color: "#888", marginLeft: 6, fontSize: "0.91em" }}>
+              {gdpDEU && gdpDEU[0]?.year ? ` (Year: ${gdpDEU[0].year})` : ""}
+            </span>
+          </div>
+          <div
+            style={{
+              background: "#fbf7eb",
+              borderLeft: "5px solid #f7ca14",
+              borderRadius: 7,
+              padding: "8px 13px 7px 15px",
+            }}
+          >
+            <strong>🇯🇵 Japan Life Expectancy:</strong>{" "}
+            <span style={{ color: "#d1a126", fontWeight: 600 }}>
+              {healthJPN && Array.isArray(healthJPN)
+                ? Number(healthJPN[0]?.value).toFixed(1)
+                : "--"}{" "}
+              years
+            </span>
+            <span style={{ color: "#888", marginLeft: 6, fontSize: "0.91em" }}>
+              {healthJPN && healthJPN[0]?.year ? ` (Year: ${healthJPN[0].year})` : ""}
+            </span>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
